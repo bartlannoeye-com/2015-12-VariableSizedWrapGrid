@@ -40,9 +40,9 @@ namespace VariableSizedWrapGrid.Data
             _data.Add(new SampleData("Group2 04"));
 
             _data.Add(new SampleData("Group3 01", 2, 2));
-            _data.Add(new SampleData("Group3 02", 2, 2));
-            _data.Add(new SampleData("Group3 03", 2, 2));
-            _data.Add(new SampleData("Group3 04"));
+            _data.Add(new SampleData("Group3 02"));
+            _data.Add(new SampleData("Group3 03"));
+            _data.Add(new SampleData("Group3 04", 2, 2));
             _data.Add(new SampleData("Group3 05"));
             _data.Add(new SampleData("Group3 06"));
 

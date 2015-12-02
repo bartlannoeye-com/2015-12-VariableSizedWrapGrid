@@ -15,13 +15,8 @@
         <CollectionViewSource x:Name="Collection" IsSourceGrouped="true" 
                               ItemsPath="Items" Source="{Binding Groups}" />
 
-        <DataTemplate x:Key="MyGroupTemplate">
-            <Grid Height="150" Width="300" Background="LightGray">
-                <TextBlock Text="{Binding Group.Name}" VerticalAlignment="Bottom" Margin="10" />
-            </Grid>
-        </DataTemplate>
         <DataTemplate x:Key="MyItemTemplate">
-            <Grid Height="150" Width="300" Background="LightGray">
+            <Grid Background="LightGray">
                 <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Margin="10" />
             </Grid>
         </DataTemplate>
@@ -38,7 +33,7 @@
                       Unchecked="ToggleButton_OnUnchecked"/>
 
         <!-- Horizontal scrolling to be like 8.1 for demo purposes -->
-        <GridView Grid.Row="1" x:Name="UnGrouped"
+        <controls:VariableSizedGridView Grid.Row="1" x:Name="UnGrouped"
                   ItemsSource="{Binding Items}"
                   ItemTemplate="{StaticResource MyItemTemplate}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -48,10 +43,10 @@
 
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid Orientation="Vertical" />
+                    <VariableSizedWrapGrid ItemWidth="300" ItemHeight="150" />
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
-        </GridView>
+        </controls:VariableSizedGridView>
 
         <!-- Horizontal scrolling to be like 8.1 for demo purposes -->
         <GridView x:Name="Grouped" Visibility="Collapsed" Grid.Row="1"
