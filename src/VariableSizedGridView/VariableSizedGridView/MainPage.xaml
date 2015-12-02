@@ -1,0 +1,84 @@
+﻿<Page
+    x:Class="VariableSizedWrapGrid.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:VariableSizedWrapGrid"
+    xmlns:controls="using:VariableSizedWrapGrid.Controls"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <local:MainViewModel />
+    </Page.DataContext>
+    <Page.Resources>
+        <CollectionViewSource x:Name="Collection" IsSourceGrouped="true" 
+                              ItemsPath="Items" Source="{Binding Groups}" />
+
+        <DataTemplate x:Key="MyGroupTemplate">
+            <Grid Height="150" Width="300" Background="LightGray">
+                <TextBlock Text="{Binding Group.Name}" VerticalAlignment="Bottom" Margin="10" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="MyItemTemplate">
+            <Grid Height="150" Width="300" Background="LightGray">
+                <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Margin="10" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <ToggleButton HorizontalAlignment="Right" Content="Grouped" 
+                      Checked="ToggleButton_OnChecked"
+                      Unchecked="ToggleButton_OnUnchecked"/>
+
+        <!-- Horizontal scrolling to be like 8.1 for demo purposes -->
+        <GridView Grid.Row="1" x:Name="UnGrouped"
+                  ItemsSource="{Binding Items}"
+                  ItemTemplate="{StaticResource MyItemTemplate}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollMode="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollMode="Disabled">
+
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+
+        <!-- Horizontal scrolling to be like 8.1 for demo purposes -->
+        <GridView x:Name="Grouped" Visibility="Collapsed" Grid.Row="1"
+                  ItemsSource="{Binding Source={StaticResource Collection}}"
+                  ItemTemplate="{StaticResource MyItemTemplate}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollMode="Auto"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollMode="Disabled">
+
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+
+            <GridView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" Margin="0">
+                                <TextBlock Text='{Binding Name}' Foreground="Gray" FontSize="25" Margin="5" />
+                            </Grid>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </GridView.GroupStyle>
+        </GridView>
+    </Grid>
+</Page>
