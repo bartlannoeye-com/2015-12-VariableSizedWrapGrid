@@ -25,8 +25,11 @@ namespace VariableSizedWrapGrid
 
         private void ShowGroupedView(bool show)
         {
-            Grouped.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
-            UnGrouped.Visibility = !show ? Visibility.Visible : Visibility.Collapsed;
+            if (Grouped != null && UnGrouped != null)
+            {
+                Grouped.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+                UnGrouped.Visibility = !show ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
     }
 }

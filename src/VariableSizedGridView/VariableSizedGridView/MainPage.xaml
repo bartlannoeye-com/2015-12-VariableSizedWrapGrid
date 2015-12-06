@@ -28,7 +28,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <ToggleButton HorizontalAlignment="Right" Content="Grouped" 
+        <ToggleButton HorizontalAlignment="Right" Content="Grouped"
                       Checked="ToggleButton_OnChecked"
                       Unchecked="ToggleButton_OnUnchecked"/>
 
@@ -49,7 +49,7 @@
         </controls:VariableSizedGridView>
 
         <!-- Horizontal scrolling to be like 8.1 for demo purposes -->
-        <GridView x:Name="Grouped" Visibility="Collapsed" Grid.Row="1"
+        <controls:VariableSizedGridView x:Name="Grouped" Grid.Row="1" Visibility="Collapsed"
                   ItemsSource="{Binding Source={StaticResource Collection}}"
                   ItemTemplate="{StaticResource MyItemTemplate}"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
@@ -57,13 +57,13 @@
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollMode="Disabled">
 
-            <GridView.ItemsPanel>
+            <controls:VariableSizedGridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid />
+                    <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
+            </controls:VariableSizedGridView.ItemsPanel>
 
-            <GridView.GroupStyle>
+            <controls:VariableSizedGridView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
@@ -72,8 +72,13 @@
                             </Grid>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <VariableSizedWrapGrid Orientation="Vertical" ItemWidth="300" ItemHeight="150" />
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
                 </GroupStyle>
-            </GridView.GroupStyle>
-        </GridView>
+            </controls:VariableSizedGridView.GroupStyle>
+        </controls:VariableSizedGridView>
     </Grid>
 </Page>
